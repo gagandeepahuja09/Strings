@@ -1,16 +1,16 @@
 string Solution::intToRoman(int A) {
-    // In Roman Numerals, we use the largest number 1st
-    vector<string> romanNumerals = { "M", "CM", "D", "CD", "C", "XC", 
-        "L", "XL", "X", "IX", "V", "IV", "I" };
-    vector<int> romanValues = { 1000, 900, 500, 400, 100, 90, 50, 40,
-    10, 9, 5 ,4, 1 };    
-    string ans = "";
-    for(int i=0; i < romanValues.size(); i++) {
-        while(A >= romanValues[i]) {
-            A -= romanValues[i];
-            ans += romanNumerals[i];
+    vector<pair<int, string>> v = { { 1000, "M" }, { 900, "CM" }, { 500, "D"}, 
+    { 400, "CD" }, { 100, "C" }, { 90, "XC"}, { 50, "L"}, { 40, "XL" }, 
+    { 10, "X"}, { 9, "IX" }, { 5, "V"}, {4, "IV"}, { 1, "I" } };
+    int i = 0;
+    string s;
+    while(A && i < v.size()) {
+        while(v[i].first <= A && A) {
+            A -= v[i].first;
+            s += v[i].second;
         }
+        i++;
     }
-    return ans;
+    return s;
 }
 
