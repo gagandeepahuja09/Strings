@@ -1,4 +1,31 @@
-vector<string> Solution::prettyJSON(string str) {
+vector<string> Solution::prettyJSON(string A) {
+    vector<string> ret;
+    string s, tabs;
+    for(int i = 0; i < A.size(); i++) {
+        s += A[i];
+        if(i < A.size() && (A[i] == '}' || A[i] == ']') && A[i + 1] == ',')
+            continue;
+        if(A[i] == ',' || A[i] == '{' || A[i] == '[' || A[i] == '}' || A[i] == ']'
+        || (A[i] == ':' && A[i + 1] == '[' || A[i + 1] == '{') 
+        || (i < A.size() - 1 && A[i] != ',' && (A[i + 1] == '}' || A[i + 1] == ']'))) {
+            ret.push_back(tabs + s);
+            s = "";
+        }
+        if(A[i] == '{' || A[i] == '[') {
+            tabs += '\t';
+        }
+        if(A[i] == '}' || A[i] == ']' || (i < A.size() - 1 && A[i] != ',' && 
+            (A[i + 1] == '}' || A[i + 1] == ']'))) {
+            if(tabs.size())
+                tabs.pop_back();
+        }
+    }
+    return ret;
+}
+
+
+
+/* vector<string> Solution::prettyJSON(string str) {
     vector<string> result;
     if (str.length() == 0) 
         return result;
@@ -64,4 +91,4 @@ vector<string> Solution::prettyJSON(string str) {
         }
     }
     return result;
-}
+} */
