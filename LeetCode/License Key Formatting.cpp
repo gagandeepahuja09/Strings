@@ -1,26 +1,26 @@
 class Solution {
 public:
     string licenseKeyFormatting(string S, int K) {
-        string ret;
-        int l = K;
+        string s;
+        int k = K;
         for(int i = S.size() - 1; i >= 0; i--) {
-            if(S[i] == '-')
+            if(S[i] == '-') {
                 continue;
-            l--;
-            if(l == -1) {
-                ret += '-';
-                l = K - 1;
             }
-            if(S[i] != '-') {
-                if(!isalpha(S[i]) || isupper(S[i]))
-                    ret += S[i];
-                else {
-                    ret += (char)(toupper(S[i]));
-                }
+            if(S[i] >= 'a' && S[i] <= 'z') {
+                s += (S[i]) + ('A' - 'a');
             }
-            // cout << l << endl;
+            else {
+                s += S[i];
+            }
+            if(--k == 0) {
+                s += "-";
+                k = K;
+            }
         }
-        reverse(ret.begin(), ret.end());
-        return ret;
+        if(s.back() == '-')
+            s.pop_back();
+        reverse(s.begin(), s.end());
+        return s;
     }
 };
