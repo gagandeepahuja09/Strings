@@ -1,12 +1,11 @@
 class Solution {
 public:
     bool repeatedSubstringPattern(string s) {
-        int i = 1, j = 0, n = s.size();
-        vector<int> lps(n, 0);
-        while(i < n) {
-            if(s[i] == s[j]) {
+        int i = 1, j = 0;
+        vector<int> lps(s.size(), 0);
+        while(i < s.size()) {
+            if(s[i] == s[j])
                 lps[i++] = ++j;
-            }
             else {
                 if(j == 0)
                     lps[i++] = 0;
@@ -14,6 +13,6 @@ public:
                     j = lps[j - 1];
             }
         }
-        return lps[n - 1] && (n % (n - lps[n - 1]) == 0);
+        return (lps[s.size() - 1] && s.size() % (s.size() - lps[s.size() - 1]) == 0);
     }
 };
